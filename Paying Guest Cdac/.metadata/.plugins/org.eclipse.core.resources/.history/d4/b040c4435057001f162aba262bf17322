@@ -1,0 +1,5 @@
+package com.example.payingguest.request;
+
+public class UpdatePass {
+
+}

@@ -1,0 +1,69 @@
+package com.example.payingguest.service;
+
+import java.io.IOException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.payingguest.entities.Images;
+import com.example.payingguest.entities.Room;
+import com.example.payingguest.exception.ImageNotFoundException;
+import com.example.payingguest.exception.RoomNotFoundExceptions;
+import com.example.payingguest.repository.ImagesRepo;
+
+@Service
+public class ImagesService {
+	@Autowired
+	private ImagesRepo imagesRepoRef;
+	@Autowired
+	private RoomService roomServiceRef;
+
+	public ResponseEntity<?> saveImage(MultipartFile imagefile, Long roomId)
+			throws IOException, RoomNotFoundExceptions {
+		try {
+			Images image = new Images();
+			image.setData(imagefile.getBytes());
+			Room roomRef = roomServiceRef.getOneRoom(roomId);
+			image.setRoomRef(roomRef);
+			imagesRepoRef.save(image);
+			return new ResponseEntity<>("Upload Successfull", HttpStatus.OK);
+		} catch (RoomNotFoundExceptions e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Fail to Upload", HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	public ResponseEntity<?> getImage(Long id) {
+		
+			Optional<Images> img = imagesRepoRef.findById(id);
+			if (img.isPresent())
+				return new ResponseEntity<>(img, HttpStatus.OK);
+			else {
+				throw new ImageNotFoundException("Image not found");
+			}
+		
+	}
+
+	public ResponseEntity<?> delete(Long id) {
+		
+			Optional<Images> img = imagesRepoRef.findById(id);
+			if (img.isPresent()) {
+				imagesRepoRef.deleteById(id);
+				return new ResponseEntity<>("image deleted successful", HttpStatus.OK);
+			} else {
+				throw new ImageNotFoundException("image Not found");
+			}
+
+		
+
+	}
+
+	public ResponseEntity<?> updateImage() {
+		return null;
+	}
+}

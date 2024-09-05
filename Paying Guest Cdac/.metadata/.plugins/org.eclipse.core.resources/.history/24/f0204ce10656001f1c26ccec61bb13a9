@@ -1,0 +1,32 @@
+package com.example.payingguest.response;
+
+public class ImageDTO {
+    private Long id;
+    private String base64Data;
+    private Long roomId;
+
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getBase64Data() {
+        return base64Data;
+    }
+
+    public void setBase64Data(String base64Data) {
+        this.base64Data = base64Data;
+    }
+
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
+}

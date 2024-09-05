@@ -1,0 +1,127 @@
+package com.example.payingguest.entities;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Room {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long roomId;
+	private String roomNumber;
+	private String area;
+	private int capacity;
+	private int floorNumber;
+	private String type;
+	private double rent;
+	private boolean isAvailable;
+	@ManyToOne
+	@JoinColumn(name = "pgId")
+	@Cascade(CascadeType.ALL)
+	private PG pgRef;
+
+	public Room() {
+
+	}
+
+	public Room(Long roomId, String roomNumber, String area, int capacity, int floorNumber, String type, double rent,
+			boolean isAvailable, PG pgRef) {
+
+		this.roomId = roomId;
+		this.roomNumber = roomNumber;
+		this.area = area;
+		this.capacity = capacity;
+		this.floorNumber = floorNumber;
+		this.type = type;
+		this.rent = rent;
+		this.isAvailable = isAvailable;
+		this.pgRef = pgRef;
+	}
+
+	public int getFloorNumber() {
+		return floorNumber;
+	}
+
+	public void setFloorNumber(int floorNumber) {
+		this.floorNumber = floorNumber;
+	}
+
+	public Long getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Long roomId) {
+		this.roomId = roomId;
+	}
+
+	public String getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(String roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public double getRent() {
+		return rent;
+	}
+
+	public void setRent(double rent) {
+		this.rent = rent;
+	}
+
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
+	public PG getPgRef() {
+		return pgRef;
+	}
+
+	public void setPgRef(PG pgRef) {
+		this.pgRef = pgRef;
+	}
+
+	@Override
+	public String toString() {
+		return "Room [roomId=" + roomId + ", roomNumber=" + roomNumber + ", capacity=" + capacity + ", rent=" + rent
+				+ ", isAvailable=" + isAvailable + ", pgRef=" + pgRef + "]";
+	}
+
+}

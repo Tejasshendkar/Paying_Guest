@@ -1,0 +1,77 @@
+package com.example.payingguest.entities;
+
+import java.util.Arrays;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Images {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Lob
+	@Column(columnDefinition = "LONGBLOB")
+	private byte[] imagedata;
+
+	@ManyToOne
+	@JoinColumn(name = "roomId")
+	@Cascade(CascadeType.ALL)
+	private	Room roomRef;
+
+	
+	public Images() {
+
+	}
+
+	
+	public Images(Long id, byte[] imagedata, Room roomRef) {
+		super();
+		this.id = id;
+		this.imagedata = imagedata;
+		this.roomRef = roomRef;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	
+	public byte[] getImagedata() {
+		return imagedata;
+	}
+
+
+	public void setImagedata(byte[] imagedata) {
+		this.imagedata = imagedata;
+	}
+
+
+	public Room getRoomRef() {
+		return roomRef;
+	}
+
+	public void setRoomRef(Room roomRef) {
+		this.roomRef = roomRef;
+	}
+	
+
+
+	
+
+}

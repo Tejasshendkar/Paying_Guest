@@ -1,0 +1,5 @@
+package com.example.payingguest.response;
+
+public class ImageDto {
+
+}
